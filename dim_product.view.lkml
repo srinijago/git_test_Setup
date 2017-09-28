@@ -52,7 +52,7 @@ view: dim_product {
 
   dimension: english_product_name {
     type: string
-    sql: ${TABLE}.EnglishProductName ;;
+    sql: COALESCE(${TABLE}.EnglishProductName, 'Other') ;;
   }
 
   dimension: finished_goods_flag {
@@ -88,6 +88,11 @@ view: dim_product {
   dimension: list_price {
     type: string
     sql: ${TABLE}.ListPrice ;;
+  }
+
+  measure: total_revenue {
+    type: sum
+    sql: ${list_price} ;;
   }
 
   dimension: model_name {

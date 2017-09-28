@@ -11,6 +11,24 @@ view: dim_geography {
     sql: ${TABLE}.CountryRegionCode ;;
   }
 
+  dimension: region {
+    type: string
+    case: {
+      when: {
+        sql: ${english_country_region_name} IN ('United States','Canada') ;;
+        label: "North America"
+      }
+      when: {
+        sql:  ${english_country_region_name} IN  ('Germany', 'France', 'United Kingdom') ;;
+        label: "Europe"
+      }
+      when: {
+        sql:  ${english_country_region_name} = 'Australia' ;;
+        label: "Australia"
+      }
+    }
+  }
+
   dimension: english_country_region_name {
     type: string
     sql: ${TABLE}.EnglishCountryRegionName ;;

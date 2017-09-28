@@ -46,17 +46,6 @@ explore: sales {
     type: left_outer
     sql_on: ${sales.order_date_key} = ${sales_date.date_key} ;;
   }
-
-  join: customer_date {
-    view_label: "Customers"
-    from: dim_date
-    relationship: many_to_one
-    type: left_outer
-    sql_on: ${} ;;
-  }
-
-
-
 }
 
 explore: prospective_buyer {}
