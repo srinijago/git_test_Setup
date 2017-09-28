@@ -22,6 +22,7 @@ view: dim_geography {
   }
 
   dimension: geography_key {
+    primary_key: yes
     type: number
     sql: ${TABLE}.GeographyKey ;;
   }

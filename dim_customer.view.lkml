@@ -37,6 +37,7 @@ view: dim_customer {
   }
 
   dimension: customer_key {
+    primary_key: yes
     type: number
     sql: ${TABLE}.CustomerKey ;;
   }

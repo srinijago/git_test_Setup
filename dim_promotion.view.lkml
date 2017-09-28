@@ -66,6 +66,7 @@ view: dim_promotion {
   }
 
   dimension: promotion_key {
+    primary_key: yes
     type: number
     sql: ${TABLE}.PromotionKey ;;
   }

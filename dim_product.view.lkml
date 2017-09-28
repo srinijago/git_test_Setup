@@ -101,6 +101,7 @@ view: dim_product {
   }
 
   dimension: product_key {
+    primary_key: yes
     type: number
     sql: ${TABLE}.ProductKey ;;
   }

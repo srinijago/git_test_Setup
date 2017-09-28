@@ -83,6 +83,7 @@ view: fact_internet_sales {
 
   dimension: sales_order_number {
     type: string
+    primary_key: yes
     sql: ${TABLE}.SalesOrderNumber ;;
   }
 

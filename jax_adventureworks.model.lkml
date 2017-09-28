@@ -6,56 +6,57 @@ include: "*.view"
 # include all the dashboards
 include: "*.dashboard"
 
-explore: adventure_works_dwbuild_version {}
+explore: sales {
+  from: fact_internet_sales
+  join: dim_sales_territory {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${sales.sales_territory_key} = ${dim_sales_territory.sales_territory_key};;
+  }
 
-explore: database_log {}
+  join: dim_promotion {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${sales.promotion_key} = ${dim_promotion.promotion_key};;
+  }
 
-explore: dim_account {}
+  join: dim_product {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${sales.product_key} = ${dim_product.product_key} ;;
+  }
 
-explore: dim_currency {}
+  join: dim_customer {
+    view_label: "Customers"
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${sales.customer_key} = ${dim_customer.customer_key} ;;
+  }
 
-explore: dim_customer {}
+  join: dim_geography {
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${dim_customer.geography_key}=${dim_geography.geography_key} ;;
+  }
 
-explore: dim_date {}
+  join: sales_date {
+    view_label: "Sales"
+    from: dim_date
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${sales.order_date_key} = ${sales_date.date_key} ;;
+  }
 
-explore: dim_department_group {}
+  join: customer_date {
+    view_label: "Customers"
+    from: dim_date
+    relationship: many_to_one
+    type: left_outer
+    sql_on: ${} ;;
+  }
 
-explore: dim_employee {}
 
-explore: dim_geography {}
 
-explore: dim_organization {}
-
-explore: dim_product {}
-
-explore: dim_product_category {}
-
-explore: dim_product_subcategory {}
-
-explore: dim_promotion {}
-
-explore: dim_reseller {}
-
-explore: dim_sales_reason {}
-
-explore: dim_sales_territory {}
-
-explore: dim_scenario {}
-
-explore: fact_call_center {}
-
-explore: fact_currency_rate {}
-
-explore: fact_finance {}
-
-explore: fact_internet_sales {}
-
-explore: fact_internet_sales_reason {}
-
-explore: fact_reseller_sales {}
-
-explore: fact_sales_quota {}
-
-explore: fact_survey_response {}
+}
 
 explore: prospective_buyer {}
