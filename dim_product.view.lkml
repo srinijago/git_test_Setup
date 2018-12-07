@@ -27,7 +27,7 @@ view: dim_product {
   }
 
   dimension: dealer_price {
-    type: string
+    type: number
     sql: ${TABLE}.DealerPrice ;;
   }
 
