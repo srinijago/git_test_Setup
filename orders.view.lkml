@@ -7,7 +7,7 @@ view: orders {
     sql: ${TABLE}.id ;;
   }
 
-  dimension_group: created {
+  dimension_group: created1 {
     type: time
     timeframes: [
       raw,
