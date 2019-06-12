@@ -12,6 +12,7 @@ datagroup: david_c_ecom_default_datagroup {
 persist_with: david_c_ecom_default_datagroup
 
 explore: events {
+#  fields: [-users.most_recent_purchase]
   join: users {
     type: left_outer
     sql_on: ${events.user_id} = ${users.id} ;;
@@ -66,6 +67,7 @@ explore: products {}
 explore: schema_migrations {}
 
 explore: user_data {
+ # fields: [-users.most_recent_purchase]
   join: users {
     type: left_outer
     sql_on: ${user_data.user_id} = ${users.id} ;;
