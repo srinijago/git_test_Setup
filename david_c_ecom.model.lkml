@@ -5,8 +5,18 @@ include: "*.view"
 include: "*.dashboard"
 
 datagroup: david_c_ecom_default_datagroup {
-  # sql_trigger: SELECT MAX(id) FROM etl_log;;
+  #sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
+}
+
+datagroup: new_orders_since_last_run {
+  max_cache_age: "24 hours"
+  sql_trigger: SELECT orders.created_at, orders.user_id
+  FROM demo_db.order_items  AS order_items
+  LEFT JOIN demo_db.orders  AS orders ON order_items.order_id = orders.id
+  GROUP BY 1,2
+  ORDER BY orders.created_at  DESC
+  LIMIT 1;;
 }
 
 persist_with: david_c_ecom_default_datagroup
