@@ -29,6 +29,15 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: id_with_link {
+    type: number
+    sql: ${TABLE}.id ;;
+    link: {
+      label: "Drill to Look with Filter"
+      url: "/looks/8856?&f[users.id]={{value}}"
+    }
+  }
+
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
