@@ -60,6 +60,11 @@ view: orders {
     type: count
   }
 
+  measure: count_with_drill {
+    type: count
+    drill_fields: [id,user_id,status]
+  }
+
   measure: distinct_order_count_month {
     type: count_distinct
     sql: ${id} ;;
@@ -78,6 +83,23 @@ view: orders {
       field: created_month
       value: "6 Months"
     }
+  }
+
+  measure: min_range {
+    type: date
+    sql: MIN(${created_raw}) ;;
+    hidden: yes
+  }
+
+  measure: max_range {
+    type: date
+    sql: MAX(${created_raw}) ;;
+    hidden: yes
+  }
+
+  measure: date_range {
+    type: string
+    sql: CONCAT(${min_range}, " to ", ${max_range}) ;;
   }
 
   # date filtered measures require dimension group timeframe too i.e. created_date/_month/_hour
