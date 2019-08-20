@@ -58,6 +58,11 @@ view: order_items {
     drill_fields: [id, inventory_items.id, orders.id]
   }
 
+  measure: count_null_drill_repro {
+    type: count
+    drill_fields: [orders.id,returned_date]
+  }
+
   measure: largest_orders {
     type: max
     sql: ${sale_price} ;;

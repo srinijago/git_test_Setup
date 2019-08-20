@@ -22,6 +22,7 @@ datagroup: new_orders_since_last_run {
 persist_with: david_c_ecom_default_datagroup
 
 explore: events {
+  label: "@{my_name} Events"
 #  fields: [-users.most_recent_purchase]
   join: users {
     type: left_outer

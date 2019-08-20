@@ -21,6 +21,7 @@ view: orders {
       month,
       quarter,
       year,
+      day_of_week,
       month_num
     ]
     sql: ${TABLE}.created_at ;;
@@ -108,6 +109,24 @@ view: orders {
     filters: {
       field: created_date
       value: "45 days"
+    }
+  }
+
+#   Can't filter a measure by another measure
+#   measure: filtered_count_on_measure {
+#     type: count_distinct
+#     sql: ${user_id} ;;
+#     filters: {
+#       field: count
+#       value: ">6"
+#     }
+#   }
+
+  measure: status_filtered_measure_count {
+    type: count
+    filters: {
+      field: status
+      value: "complete,null"
     }
   }
 
