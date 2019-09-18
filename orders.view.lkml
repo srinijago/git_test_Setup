@@ -11,6 +11,13 @@ view: orders {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: action_calc {
+    type: number
+    sql: case when ${status} = 'complete' then 1
+      when ${status} = 'pending' then 2
+      else 3 end ;;
+  }
+
   dimension_group: created {
     type: time
     timeframes: [
@@ -26,6 +33,13 @@ view: orders {
     ]
     sql: ${TABLE}.created_at ;;
   }
+
+#  Excel date value formats don't work in the LookML
+#   dimension: date_formatted {
+#     type: date
+#     sql: ${TABLE}.created_at ;;
+#     value_format: "m/dd/yyyy"
+#   }
 
   dimension_group: time_since_created {
     type: duration
