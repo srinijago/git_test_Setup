@@ -31,6 +31,28 @@ explore: events {
   }
 }
 
+explore: video_reporting_cdw {
+  persist_for: "0 seconds"
+  label: "Video Reporting"
+  extends: [order_items]
+  view_name: order_items
+  #fields: [set.client_facing_cdw_star_video*]
+  access_filter: {
+    field: order_items.mod_1020_repro
+    user_attribute: david_repro_mod_1020
+  }
+  # sql_always_where: ${fact_delivery.event_date} >= TIMESTAMPADD('dd',-737,CURRENT_DATE) ;;
+  join: events {}
+  hidden: no
+
+#   always_filter: {
+#     filters: {
+#       field: fact_delivery.event_date
+#       value: "1 Days"
+#     }
+#   }
+}
+
 explore: inventory_items {
   join: products {
     type: left_outer

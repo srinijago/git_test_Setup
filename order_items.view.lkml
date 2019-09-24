@@ -15,6 +15,20 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: mod_1020_repro {
+    type: number
+    suggestable: no
+    hidden: no
+    sql:   CASE
+             WHEN
+              {% condition mod_1020_repro %} ${users.id} {% endcondition %} then ${users.id}
+             WHEN
+              {% condition mod_1020_repro %} ${order_items.id} {% endcondition %} then ${order_items.id}
+             WHEN
+              {% condition mod_1020_repro %} ${orders.id} {% endcondition %} then ${orders.id}
+           END;;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
