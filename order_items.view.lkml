@@ -29,6 +29,19 @@ view: order_items {
            END;;
   }
 
+  filter: mod_1020_repro_filter {
+    type: number
+    suggestable: no
+    #hidden: yes
+    sql: (
+          {% condition mod_1020_repro %} ${users.id} {% endcondition %}
+          OR
+          {% condition mod_1020_repro %} ${order_items.id} {% endcondition %}
+          OR
+          {% condition mod_1020_repro %} ${orders.id} {% endcondition %}
+              );;
+  }
+
   dimension: inventory_item_id {
     type: number
     # hidden: yes
