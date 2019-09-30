@@ -34,11 +34,11 @@ view: order_items {
     suggestable: no
     #hidden: yes
     sql: (
-          {% condition mod_1020_repro %} ${users.id} {% endcondition %}
+          {% condition mod_1020_repro_filter %} ${users.id} {% endcondition %}
           OR
-          {% condition mod_1020_repro %} ${order_items.id} {% endcondition %}
+          {% condition mod_1020_repro_filter %} ${order_items.id} {% endcondition %}
           OR
-          {% condition mod_1020_repro %} ${orders.id} {% endcondition %}
+          {% condition mod_1020_repro_filter %} ${orders.id} {% endcondition %}
               );;
   }
 
