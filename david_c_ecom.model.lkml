@@ -9,6 +9,8 @@ datagroup: david_c_ecom_default_datagroup {
   max_cache_age: "1 hour"
 }
 
+#my comment here
+
 datagroup: new_orders_since_last_run {
   max_cache_age: "24 hours"
   sql_trigger: SELECT orders.created_at, orders.user_id
