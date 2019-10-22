@@ -11,6 +11,8 @@ view: orders {
     sql: ${TABLE}.id ;;
   }
 
+  #my new comment
+
   dimension: action_calc {
     type: number
     sql: case when ${status} = 'complete' then 1
