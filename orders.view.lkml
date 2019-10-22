@@ -54,6 +54,20 @@ view: orders {
     sql: ${TABLE}.status ;;
   }
 
+  dimension: case_lookml_field {
+    case: {
+      when: {
+        label: "Complete or Cancelled"
+        sql: ${status} = "complete" OR ${status} = "cancelled" ;;
+      }
+      when: {
+        label: "Pending"
+        sql: ${status} = "pending" ;;
+      }
+      else: "Boom Shakalaka"
+    }
+  }
+
   dimension: user_id {
     type: number
     # hidden: yes
@@ -73,6 +87,11 @@ view: orders {
 
   measure: count {
     type: count
+  }
+
+  measure: count_distinct {
+    type: count_distinct
+    sql: COALESCE(${id},0) ;;
   }
 
   measure: count_with_drill {
