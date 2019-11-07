@@ -113,3 +113,8 @@ explore: user_data {
 explore: users {}
 
 explore: users_nn {}
+
+explore: extends_test {
+  extends: [order_items]
+  view_name: order_items
+}
