@@ -9,6 +9,14 @@ view: orders {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    link: {
+      label: "Click me to go to a Dashboard"
+      url: "/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}"
+    }
+    link: {
+      label: "Click me to go to an Explore"
+      url: "/explore/david_c_ecom/order_items?fields=users.first_name,users.last_name,users.age,users.city,users.country,users.gender&f[orders.created_date]={{ _filters['orders.created_date'] }}&f[users.id]={{ users.id._value}}&f[orders.id]={{ value }}"
+    }
   }
 
   #my new comment is back
@@ -85,6 +93,18 @@ view: orders {
           <font color="black">{{ rendered_value }}</font>
           {% endif %}
           ;;
+  }
+
+  measure: 9k {
+    type: sum
+    sql: 9000 ;;
+    value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";"
+  }
+
+  measure: negative_9k {
+    type: sum
+    sql: -9000 ;;
+    value_format: "[abs(>=1000000)]0.00,,\"M\";[abs(>=1000)]0.00,\"K\";"
   }
 
   measure: count {

@@ -114,6 +114,15 @@ explore: users {}
 
 explore: users_nn {}
 
+explore: dynamic_derived_table {
+  always_filter: {
+    filters: {
+      field: date_filter
+      value: "12 months"
+    }
+  }
+}
+
 explore: extends_test {
   extends: [order_items]
   view_name: order_items
