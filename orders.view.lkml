@@ -197,7 +197,7 @@ view: orders {
     action: {
       label: "Looker Test"
 #url: "https://htmovk6mqi.execute-api.us-west-1.amazonaws.com/DEV"
-      url: "https://hooks.zapier.com/hooks/catch/6236013/o6fjej6/"
+      url: "https://hooks.zapier.com/hooks/catch/6236013/o6c87v2/"
       form_param: {
         name: "call_disposition"
         type: select
