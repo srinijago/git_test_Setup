@@ -37,6 +37,7 @@ view: orders {
       week,
       month,
       quarter,
+      second,
       year,
       day_of_week,
       month_num
