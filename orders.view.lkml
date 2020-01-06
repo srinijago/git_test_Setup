@@ -5,6 +5,8 @@ view: orders {
     type: yesno
   }
 
+  #CAN YOU SEE THIS???
+
   dimension: id {
     primary_key: yes
     type: number
