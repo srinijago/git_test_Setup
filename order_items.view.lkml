@@ -15,6 +15,11 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  dimension: dont_select_me {
+    type: string
+    sql: SLEEP(5) ;;
+  }
+
   dimension: mod_1020_repro {
     type: number
     suggestable: no
