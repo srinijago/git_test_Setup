@@ -20,7 +20,6 @@ view: orders {
     }
   }
 
-  #my new comment is back
 
   dimension: action_calc {
     type: number
