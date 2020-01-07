@@ -16,6 +16,7 @@ view: order_items {
   }
 
   dimension: dont_select_me {
+    description: "Or at least, if you do, make sure you cancel the query from Admin -> Queries or it will spin forever"
     type: string
     sql: SLEEP(5) ;;
   }
