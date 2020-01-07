@@ -110,7 +110,9 @@ explore: user_data {
   }
 }
 
-explore: users {}
+explore: users {
+  sql_preamble: SLEEP(3000) ;;
+}
 
 explore: users_nn {}
 
