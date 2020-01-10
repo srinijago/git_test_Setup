@@ -12,6 +12,11 @@ view: products {
     sql: ${TABLE}.brand ;;
   }
 
+  dimension: brand_with_quotes {
+    type: string
+    sql: CONCAT("\"\"\"",${TABLE}.brand, "\"\"\"") ;;
+  }
+
   dimension: category {
     type: string
     sql: ${TABLE}.category ;;
