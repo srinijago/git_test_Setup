@@ -145,13 +145,13 @@ view: orders {
   measure: min_range {
     type: date
     sql: MIN(${created_raw}) ;;
-    hidden: yes
+    hidden: no
   }
 
   measure: max_range {
     type: date
     sql: MAX(${created_raw}) ;;
-    hidden: yes
+    hidden: no
   }
 
   measure: date_range {
