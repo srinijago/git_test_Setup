@@ -102,6 +102,15 @@ view: orders {
     value_format: "[>=1000000]0.00,,\"M\";[>=1000]0.00,\"K\";"
   }
 
+  measure: drill_filtered_measure {
+    type: count
+    drill_fields: [id,user_id,created_date]
+    filters: {
+      field: user_id
+      value: ">123"
+    }
+  }
+
   measure: negative_9k {
     type: sum
     sql: -9000 ;;
