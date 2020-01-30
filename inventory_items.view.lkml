@@ -9,7 +9,24 @@ view: inventory_items {
 
   dimension: cost {
     type: number
+    # value_format_name added
+    value_format_name: usd
     sql: ${TABLE}.cost ;;
+  }
+
+  # case statement added
+  dimension: item_cost_type {
+    case: {
+      when: {
+        sql: ${cost} > 250 ;;
+        label: "Expensive"
+      }
+      when: {
+        sql: ${cost} > 100 ;;
+        label: "Moderate"
+      }
+      else: "Cheap"
+    }
   }
 
   dimension_group: created {
@@ -18,6 +35,7 @@ view: inventory_items {
       raw,
       time,
       date,
+      hour_of_day,
       week,
       month,
       quarter,
@@ -30,6 +48,12 @@ view: inventory_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.product_id ;;
+  }
+
+  # yesno dimension added
+  dimension: is_product_expensive {
+    type: yesno
+    sql: ${cost} >= 100 ;;
   }
 
   dimension_group: sold {
