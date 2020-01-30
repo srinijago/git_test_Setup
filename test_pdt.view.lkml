@@ -1,6 +1,7 @@
 view: test_pdt {
   derived_table: {
     publish_as_db_view: yes
+    sql_trigger_value: SELECT HOUR(CURTIME()) ;;
     sql: SELECT
         order_items.inventory_item_id  AS `order_items.inventory_item_id`,
         order_items.order_id  AS `order_items.order_id`
