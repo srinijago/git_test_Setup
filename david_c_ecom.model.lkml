@@ -72,6 +72,8 @@ explore: user_data {
   }
 }
 
+
+explore: test_pdt {}
 explore: users {}
 
 explore: users_nn {}
