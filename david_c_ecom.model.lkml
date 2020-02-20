@@ -64,6 +64,7 @@ explore: inventory_items {
 }
 
 explore: order_items {
+ # fields: [ALL_FIELDS*, -orders.orders.mic_check_mic_check_1212*]
   join: inventory_items {
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;

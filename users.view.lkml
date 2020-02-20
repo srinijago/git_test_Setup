@@ -111,6 +111,15 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+  dimension: zip_with_link {
+    type: zipcode
+    sql: ${TABLE}.zip ;;
+    link: {
+      url: "https://www.google.com/{{ users.id._value }}"
+      label: "Click Me"
+    }
+  }
+
   measure: count {
     type: count
     drill_fields: [detail*]

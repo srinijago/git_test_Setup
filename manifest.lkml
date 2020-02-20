@@ -10,3 +10,8 @@ project_name: "david_c_ecom"
 constant: my_name {
   value: "David's"
 }
+
+# localization_settings: {
+#   default_locale: en_US
+#   localization_level: strict
+# }

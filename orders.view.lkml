@@ -20,6 +20,25 @@ view: orders {
     }
   }
 
+  dimension: id_string_hopefully {
+    type: string
+    sql: ${TABLE}.id ;;
+  }
+
+  measure: sum_id {
+    type: sum
+    sql: ${id_string_hopefully} ;;
+  }
+
+  filter: date_filter_field {
+    type: date
+  }
+
+  filter: string_filter_field {
+    type: string
+    #sql: {% condition string_filter_field %} ${id} {% endcondition %} ;;
+  }
+
 
   dimension: action_calc {
     type: number
@@ -176,6 +195,11 @@ view: orders {
       value: "45 days"
     }
   }
+
+  # measure: order_items_distinct_count {
+  #   type: count_distinct
+  #   sql: ${order_items.id} ;;
+  # }
 
 #   Can't filter a measure by another measure
 #   measure: filtered_count_on_measure {
@@ -581,4 +605,8 @@ view: orders {
       }
     }
   }
+
+#   set: mic_check_mic_check_1212 {
+#     fields: [negative_9k, distinct_order_count_month, distinct_order_count_sixmo]
+#   }
 }
