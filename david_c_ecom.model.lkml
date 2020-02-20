@@ -111,8 +111,9 @@ explore: user_data {
   }
 }
 
-explore: users {
-}
+
+explore: test_pdt {}
+
 
 explore: users_nn {}
 
