@@ -27,6 +27,10 @@ view: users {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    link: {
+      url: "https://www.google.com/{{ users.id._value }}"
+      label: "Click Me {{ users.age._value }}"
+    }
   }
 
   dimension: id_with_link {
@@ -116,7 +120,7 @@ view: users {
     sql: ${TABLE}.zip ;;
     link: {
       url: "https://www.google.com/{{ users.id._value }}"
-      label: "Click Me"
+      label: "Click Me {{ users.id._value }}"
     }
   }
 

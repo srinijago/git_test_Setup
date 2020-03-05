@@ -20,6 +20,17 @@ view: orders {
     }
   }
 
+  dimension: id_with_html {
+    #primary_key: yes
+    type: number
+    sql: ${TABLE}.id ;;
+    # link: {
+    #   label: "Click me to go to a Dashboard"
+    #   url: "/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}"
+    # }
+    html: <a href="https://master.looker.com/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}">{{rendered_value}}</a> ;;
+  }
+
   dimension: id_string_hopefully {
     type: string
     sql: ${TABLE}.id ;;
@@ -113,6 +124,10 @@ view: orders {
           <font color="black">{{ rendered_value }}</font>
           {% endif %}
           ;;
+    link: {
+      label: "Google Boi"
+      url: "https://www.google.com"
+    }
   }
 
   measure: 9k {
