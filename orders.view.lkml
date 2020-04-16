@@ -10,6 +10,7 @@ view: orders {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+   # order_by_field: user_id
     link: {
       label: "Click me to go to a Dashboard"
       url: "/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}"
