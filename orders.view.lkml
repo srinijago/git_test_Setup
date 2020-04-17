@@ -5,6 +5,11 @@ view: orders {
     type: yesno
   }
 
+  dimension: user_specific_timezone {
+    type: string
+    sql: '{{ _user_attributes['timezone'] }}' ;;
+  }
+
 
   dimension: id {
     primary_key: yes
