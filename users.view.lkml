@@ -129,6 +129,21 @@ view: users {
     drill_fields: [detail*]
   }
 
+  measure: sum_test {
+    type: count_distinct
+    sql: ${id} ;;
+    drill_fields: [id,count]
+    link: {
+      url: "{{dummy._link}}&sorts=id+asc"
+    }
+  }
+
+  measure: dummy {
+    type: sum
+    sql: 0 ;;
+    drill_fields: [id,count]
+  }
+
 #   measure: most_recent_purchase {
 #     type: date
 #     sql: MAX(${orders.created_date}}) ;;

@@ -5,6 +5,10 @@ view: orders {
     type: yesno
   }
 
+  filter: date_filter {
+    type: date
+  }
+
   dimension: user_specific_timezone {
     type: string
     sql: '{{ _user_attributes['timezone'] }}' ;;
@@ -244,6 +248,22 @@ view: orders {
     type: number
     sql: (${distinct_order_count_month}/${distinct_order_count_sixmo}) *100;;
     value_format: "0.00\%"
+  }
+
+  measure: sum_of_id_with_drill {
+    type: sum
+    sql: ${id} ;;
+    link: {
+      url: "{{dummy._link}}"
+      label: "Click Me"
+    }
+  }
+
+  measure: dummy {
+    type: sum
+    hidden: yes
+    sql: 0 ;;
+    drill_fields: [id,created_date,status,count]
   }
 
   dimension: log_call {

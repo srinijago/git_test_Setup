@@ -23,6 +23,16 @@ datagroup: new_orders_since_last_run {
 
 persist_with: david_c_ecom_default_datagroup
 
+explore: liquid_table_name {}
+
+explore: orders_dt {
+  join: orders {
+    type: left_outer
+    relationship: one_to_one
+    sql_on: ${orders_dt.id} = ${orders.id} ;;
+  }
+}
+
 explore: events {
   label: "@{my_name} Events"
 #  fields: [-users.most_recent_purchase]
