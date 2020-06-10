@@ -101,9 +101,9 @@ explore: order_items {
 }
 
 explore: orders {
-  always_filter: {
-    filters: [is_order_new: ""]
-  }
+  # always_filter: {
+  #   filters: [is_order_new: ""]
+  # }
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;

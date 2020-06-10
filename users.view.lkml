@@ -94,6 +94,12 @@ view: users {
     sql: CONCAT(${first_name}, " ", ${last_name}) ;;
   }
 
+  filter: first_name_suggest_test {
+    type: string
+    suggest_dimension: first_name
+   # suggest_explore: order_items
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;

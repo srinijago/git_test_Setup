@@ -14,6 +14,9 @@ view: orders {
     sql: '{{ _user_attributes['timezone'] }}' ;;
   }
 
+  parameter: date_param {
+    type: date
+  }
 
   dimension: id {
     primary_key: yes
@@ -254,7 +257,7 @@ view: orders {
     type: sum
     sql: ${id} ;;
     link: {
-      url: "{{dummy._link}}"
+      url: "{{dummy._link}}&sorts=orders.status+asc"
       label: "Click Me"
     }
   }
