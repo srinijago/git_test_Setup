@@ -115,6 +115,13 @@ explore: orders {
   }
 }
 
+explore: orders2 {
+  from: orders
+  # always_filter: {
+  #   filters: [is_order_new: ""]
+  # }
+}
+
 explore: products {}
 
 explore: schema_migrations {}
