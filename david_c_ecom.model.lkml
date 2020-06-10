@@ -73,6 +73,10 @@ explore: inventory_items {
   }
 }
 
+explore: base_explore_to_refine {
+  view_name: inventory_items
+}
+
 explore: order_items {
  # fields: [ALL_FIELDS*, -orders.orders.mic_check_mic_check_1212*]
   join: inventory_items {
