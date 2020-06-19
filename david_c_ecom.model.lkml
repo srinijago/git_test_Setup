@@ -4,6 +4,7 @@ connection: "thelook"
 include: "*.view"
 include: "*.dashboard"
 
+fiscal_month_offset: 2
 datagroup: david_c_ecom_default_datagroup {
   #sql_trigger: SELECT MAX(id) FROM etl_log;;
   max_cache_age: "1 hour"
@@ -11,6 +12,12 @@ datagroup: david_c_ecom_default_datagroup {
 
 #my comment here
 
+explore: inventory_items {
+}
+
+explore: sql_test {}
+
+explore: test_dt {}
 datagroup: new_orders_since_last_run {
   max_cache_age: "24 hours"
   sql_trigger: SELECT orders.created_at, orders.user_id
@@ -24,7 +31,6 @@ datagroup: new_orders_since_last_run {
 persist_with: david_c_ecom_default_datagroup
 
 explore: events {
-  label: "@{my_name} Events"
 #  fields: [-users.most_recent_purchase]
   join: users {
     type: left_outer
@@ -32,7 +38,15 @@ explore: events {
     relationship: many_to_one
   }
 }
+explore: users {}
 
+explore: products_dt {
+  join: products {
+    type: left_outer
+    sql_on: ${products.brand} = ${products_dt.products_brand} ;;
+    relationship: many_to_one
+}
+}
 explore: video_reporting_cdw {
   persist_for: "0 seconds"
   label: "Video Reporting"
@@ -55,18 +69,29 @@ explore: video_reporting_cdw {
 #   }
 }
 
-explore: inventory_items {
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
-}
+# explore: inventory_items {
+#   join: products {
+#     type: left_outer
+#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+#     relationship: many_to_one
+#   }
+# }
 
+
+#testing thisout pls work
 explore: order_items {
+#   always_filter: {
+#     filters: [order_items.returned_date: "1 day"]
+#   }
+#   sql_always_where:
+#   {% condition order_items.date_filter %}
+#   ${returned_date}
+#   {% endcondition %} ;;
   join: inventory_items {
+    from: products
     type: left_outer
     sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
+   # sql_on: ${order_items.inventory_item_id} = ${inventory_items.id} ;;
     relationship: many_to_one
   }
 
@@ -76,11 +101,11 @@ explore: order_items {
     relationship: many_to_one
   }
 
-  join: products {
-    type: left_outer
-    sql_on: ${inventory_items.product_id} = ${products.id} ;;
-    relationship: many_to_one
-  }
+#   join: products {
+#     type: left_outer
+#     sql_on: ${inventory_items.product_id} = ${products.id} ;;
+#     relationship: many_to_one
+#   }
 
   join: users {
     type: left_outer
@@ -88,8 +113,12 @@ explore: order_items {
     relationship: many_to_one
   }
 }
+
 
 explore: orders {
+  sql_always_where: ${orders.status} = {% parameter orders.test_status %}
+
+  ;;
   join: users {
     type: left_outer
     sql_on: ${orders.user_id} = ${users.id} ;;
@@ -97,12 +126,13 @@ explore: orders {
   }
 }
 
-explore: products {}
+# explore: products {
+#   extends: [user_data]
+# }
 
 explore: schema_migrations {}
 
 explore: user_data {
- # fields: [-users.most_recent_purchase]
   join: users {
     type: left_outer
     sql_on: ${user_data.user_id} = ${users.id} ;;
@@ -115,17 +145,3 @@ explore: test_pdt {}
 
 
 explore: users_nn {}
-
-explore: dynamic_derived_table {
-  always_filter: {
-    filters: {
-      field: date_filter
-      value: "12 months"
-    }
-  }
-}
-
-explore: extends_test {
-  extends: [order_items]
-  view_name: order_items
-}

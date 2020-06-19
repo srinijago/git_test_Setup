@@ -2,22 +2,37 @@ view: orders {
   sql_table_name: demo_db.orders ;;
 
   parameter: is_order_new {
-    type: yesno
+    type: string
+    allowed_value: {
+      label: "Yes"
+      value: "Yes"
+    }
+    allowed_value: {
+      label: "No"
+      value: "No"
+    }
+# suggest_dimension: status
   }
 
+  dimension: test_static {
+    type: string
+    sql: CASE WHEN 1=1 THEN "test" else "none" end ;;
+  }
 
   dimension: id {
     primary_key: yes
     type: number
+    description: "Test hover"
     sql: ${TABLE}.id ;;
-    link: {
-      label: "Click me to go to a Dashboard"
-      url: "/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}"
-    }
-    link: {
-      label: "Click me to go to an Explore"
-      url: "/explore/david_c_ecom/order_items?fields=users.first_name,users.last_name,users.age,users.city,users.country,users.gender&f[orders.created_date]={{ _filters['orders.created_date'] }}&f[users.id]={{ users.id._value}}&f[orders.id]={{ value }}"
-    }
+    value_format: "0\%"
+#     link: {
+#       label: "Click me to go to a Dashboard"
+#       url: "/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}"
+#     }
+#     link: {
+#       label: "Click me to go to an Explore"
+#       url: "/explore/david_c_ecom/order_items?fields=users.first_name,users.last_name,users.age,users.city,users.country,users.gender&f[orders.created_date]={{ _filters['orders.created_date'] }}&f[users.id]={{ users.id._value}}&f[orders.id]={{ value }}"
+#     }
   }
 
 
@@ -40,9 +55,13 @@ view: orders {
       second,
       year,
       day_of_week,
-      month_num
+      month_num, fiscal_month_num,fiscal_quarter,fiscal_quarter_of_year,fiscal_year, month_name
     ]
     sql: ${TABLE}.created_at ;;
+  }
+
+  dimension: test_lol {
+    sql: {% date_end created_date %}  ;;
   }
 
 #  Excel date value formats don't work in the LookML
@@ -64,6 +83,13 @@ view: orders {
     type: string
     sql: ${TABLE}.status ;;
   }
+
+  parameter: test_status {
+    type: string
+    suggest_dimension: status
+  }
+
+
 
   dimension: case_lookml_field {
     case: {

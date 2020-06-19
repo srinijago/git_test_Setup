@@ -15,6 +15,16 @@ view: order_items {
     sql: ${TABLE}.id ;;
   }
 
+  measure: tst_meas {
+    type: number
+    sql: ${id} ;;
+  }
+
+  measure: test_t {
+    type: average
+    sql: ${id} ;;
+  }
+
   dimension: dont_select_me {
     description: "Or at least, if you do, make sure you cancel the query from Admin -> Queries or it will spin forever"
     type: string
@@ -50,7 +60,7 @@ view: order_items {
 
   dimension: inventory_item_id {
     type: number
-    # hidden: yes
+     hidden: yes
     sql: ${TABLE}.inventory_item_id ;;
   }
 
@@ -58,6 +68,17 @@ view: order_items {
     type: number
     # hidden: yes
     sql: ${TABLE}.order_id ;;
+  }
+
+  dimension: work_number_link {
+    label: "Work Number Link" # ToDo: Remove work link
+    description: "Testing common dim/measure extension"
+    sql: ${order_id} ;;
+    link: {
+      label: "{{ value }}"
+      url: "https://www.workmarket.com/assignments/details/{{ value }}"
+      icon_url: "https://www.workmarket.com/favicon.ico"
+    }
   }
 
   dimension_group: returned {
@@ -70,7 +91,8 @@ view: order_items {
       week,
       month,
       quarter,
-      year
+      year,
+      hour_of_day
     ]
     sql: ${TABLE}.returned_at ;;
   }
@@ -115,10 +137,26 @@ view: order_items {
     value_format_name: usd
   }
 
+  measure: sum_order {
+    type: sum
+    sql: ${order_id} ;;
+  }
+
+  measure: test32 {
+    type: number
+    sql: ${total_revenue}/${sum_order} ;;
+  }
+
+measure: test_num{
+  type: number
+  sql: ${sum_order}/${total_revenue} ;;
+}
   measure: average_dollars_per_sale {
     type: number
-    sql: ${total_revenue} / ${count} ;;
+    sql: ${total_revenue} ;;
     description: "Use a time-based metric to see ADS"
     value_format_name: usd
   }
+
+
 }

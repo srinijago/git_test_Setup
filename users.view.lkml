@@ -29,6 +29,14 @@ view: users {
     sql: ${TABLE}.id ;;
   }
 
+  filter: end_date {
+    type: string
+  }
+
+filter: start_date {
+  label: " Start Date"
+  type: string
+}
   dimension: id_with_link {
     type: number
     sql: ${TABLE}.id ;;
@@ -41,7 +49,45 @@ view: users {
   dimension: age {
     type: number
     sql: ${TABLE}.age ;;
+#     html:
+#     {% if value > 40 %}
+#     <p style="color:red; text-align:center">{{ rendered_value }}</p>
+#     {% else %}
+#     <p style="color: green; text-align:center">{{ rendered_value }}</p>
+#     {% endif %}
+#     ;;
+  html: <a href="/explore/david_c_ecom/order_items?&f[users.age]={{ value }}">{{ value }}</a> ;;
+
+
   }
+
+filter: tst_ristrct {
+  type: string
+}
+  dimension: age_1 {
+    type: number
+    sql: ${age} +1 ;;
+  }
+
+  measure: test_dim {
+    type: number
+    sql: ${average_test} * ${age_1} ;;
+  }
+
+  measure: sum_age{
+    type: sum
+    sql: ${age} ;;
+  }
+
+measure: sum_age1 {
+  type: sum
+  sql: ${age_1} ;;
+}
+
+measure: division{
+  type: number
+  sql: ${sum_age1}/${sum_age} ;;
+}
 
   dimension: age_tier {
     type: tier
@@ -55,10 +101,18 @@ view: users {
     sql: ${TABLE}.city ;;
   }
 
+  measure: city_count {
+    type: number
+    sql: COUNT(${city}) ;;
+  }
+
   dimension: country {
     type: string
     map_layer_name: countries
     sql: ${TABLE}.country ;;
+    suggest_explore: sql_test
+    suggest_dimension: sql_test.country
+    suggest_persist_for: "1 minute"
   }
 
   dimension_group: created {
@@ -90,6 +144,11 @@ view: users {
     sql: CONCAT(${first_name}, " ", ${last_name}) ;;
   }
 
+  measure: test_mea {
+    type: sum_distinct
+    sql: ${age} ;;
+  }
+
   dimension: gender {
     type: string
     sql: ${TABLE}.gender ;;
@@ -111,9 +170,31 @@ view: users {
     sql: ${TABLE}.zip ;;
   }
 
+
+measure: string_state {
+  type: string
+  sql: ${state} ;;
+}
+measure: case_test {
+  type: number
+#   sql: {% if ${string_state} == "California" %}
+#   ${count}
+#   {% elsif ${string_state} == "Alaska" %}
+#   ${average_test}
+#   {% endif %} ;;
+sql: CASE WHEN ${TABLE}.state = 'California' then ${count}
+ WHEN ${TABLE}.state = 'Alaska' then ${average_test}
+ELSE 0
+END ;;
+}
+
   measure: count {
     type: count
-    drill_fields: [detail*]
+  }
+
+  measure: average_test {
+    type: average
+    sql: ${id} ;;
   }
 
 #   measure: most_recent_purchase {
