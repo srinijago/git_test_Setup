@@ -80,6 +80,7 @@ explore: video_reporting_cdw {
 
 #testing thisout pls work
 explore: order_items {
+  label: "{{ _explore._name }}"
 #   always_filter: {
 #     filters: [order_items.returned_date: "1 day"]
 #   }

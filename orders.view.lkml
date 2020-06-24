@@ -113,13 +113,8 @@ view: orders {
 
   measure: count_formatted {
     type: count
+    value_format_name: decimal_0
     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
-    html: {% if orders.status._value == 'complete' and value > 10 %}
-          <font color="green">{{ rendered_value }}</font>
-          {% else %}
-          <font color="black">{{ rendered_value }}</font>
-          {% endif %}
-          ;;
   }
 
   measure: 9k {

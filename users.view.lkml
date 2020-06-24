@@ -98,6 +98,7 @@ measure: division{
 
   dimension: city {
     type: string
+    label: "city test"
     sql: ${TABLE}.city ;;
   }
 
@@ -126,6 +127,7 @@ measure: division{
       quarter,
       year
     ]
+    label: "time2"
     sql: ${TABLE}.created_at ;;
   }
 

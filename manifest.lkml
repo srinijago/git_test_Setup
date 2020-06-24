@@ -10,3 +10,8 @@ project_name: "david_c_ecom"
 constant: my_name {
   value: "David's"
 }
+
+constant: user_test {
+  value: "users"
+  export: override_optional
+}
