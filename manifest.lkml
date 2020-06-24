@@ -11,7 +11,14 @@ constant: my_name {
   value: "David's"
 }
 
+<<<<<<< HEAD
 constant: user_test {
   value: "users"
   export: override_optional
 }
+=======
+# localization_settings: {
+#   default_locale: en_US
+#   localization_level: strict
+# }
+>>>>>>> branch 'master' of https://github.com/srinijago/git_test_Setup.git

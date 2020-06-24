@@ -27,6 +27,10 @@ view: users {
     primary_key: yes
     type: number
     sql: ${TABLE}.id ;;
+    link: {
+      url: "https://www.google.com/{{ users.id._value }}"
+      label: "Click Me {{ users.age._value }}"
+    }
   }
 
   filter: end_date {
@@ -146,10 +150,6 @@ measure: division{
     sql: CONCAT(${first_name}, " ", ${last_name}) ;;
   }
 
-  measure: test_mea {
-    type: sum_distinct
-    sql: ${age} ;;
-  }
 
   dimension: gender {
     type: string
@@ -164,7 +164,7 @@ measure: division{
   dimension: state {
     type: string
     sql: ${TABLE}.state ;;
-   # map_layer_name: us_states
+    map_layer_name: us_states
   }
 
   dimension: zip {
@@ -173,23 +173,6 @@ measure: division{
   }
 
 
-measure: string_state {
-  type: string
-  sql: ${state} ;;
-}
-measure: case_test {
-  type: number
-#   sql: {% if ${string_state} == "California" %}
-#   ${count}
-#   {% elsif ${string_state} == "Alaska" %}
-#   ${average_test}
-#   {% endif %} ;;
-sql: CASE WHEN ${TABLE}.state = 'California' then ${count}
- WHEN ${TABLE}.state = 'Alaska' then ${average_test}
-ELSE 0
-END ;;
-}
-
   measure: count {
     type: count
   }
@@ -197,6 +180,21 @@ END ;;
   measure: average_test {
     type: average
     sql: ${id} ;;
+  }
+
+  measure: sum_test {
+    type: count_distinct
+    sql: ${id} ;;
+    drill_fields: [id,count]
+    link: {
+      url: "{{dummy._link}}&sorts=id+asc"
+    }
+  }
+
+  measure: dummy {
+    type: sum
+    sql: 0 ;;
+    drill_fields: [id,count]
   }
 
 #   measure: most_recent_purchase {

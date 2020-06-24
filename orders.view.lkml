@@ -14,9 +14,23 @@ view: orders {
 # suggest_dimension: status
   }
 
+<<<<<<< HEAD
   dimension: test_static {
     type: string
     sql: CASE WHEN 1=1 THEN "test" else "none" end ;;
+=======
+  filter: date_filter {
+    type: date
+  }
+
+  dimension: user_specific_timezone {
+    type: string
+    sql: '{{ _user_attributes['timezone'] }}' ;;
+  }
+
+  parameter: date_param {
+    type: date
+>>>>>>> branch 'master' of https://github.com/srinijago/git_test_Setup.git
   }
 
   dimension: id {
@@ -24,6 +38,7 @@ view: orders {
     type: number
     description: "Test hover"
     sql: ${TABLE}.id ;;
+<<<<<<< HEAD
     value_format: "0\%"
 #     link: {
 #       label: "Click me to go to a Dashboard"
@@ -33,6 +48,47 @@ view: orders {
 #       label: "Click me to go to an Explore"
 #       url: "/explore/david_c_ecom/order_items?fields=users.first_name,users.last_name,users.age,users.city,users.country,users.gender&f[orders.created_date]={{ _filters['orders.created_date'] }}&f[users.id]={{ users.id._value}}&f[orders.id]={{ value }}"
 #     }
+=======
+   # order_by_field: user_id
+    link: {
+      label: "Click me to go to a Dashboard"
+      url: "/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}"
+    }
+    link: {
+      label: "Click me to go to an Explore"
+      url: "/explore/david_c_ecom/order_items?fields=users.first_name,users.last_name,users.age,users.city,users.country,users.gender&f[orders.created_date]={{ _filters['orders.created_date'] }}&f[users.id]={{ users.id._value}}&f[orders.id]={{ value }}"
+    }
+>>>>>>> branch 'master' of https://github.com/srinijago/git_test_Setup.git
+  }
+
+  dimension: id_with_html {
+    #primary_key: yes
+    type: number
+    sql: ${TABLE}.id ;;
+    # link: {
+    #   label: "Click me to go to a Dashboard"
+    #   url: "/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}"
+    # }
+    html: <a href="https://master.looker.com/dashboards/3411?Date={{ _filters['orders.created_date'] }}&Order={{ value }}&User={{ users.id._value}}">{{rendered_value}}</a> ;;
+  }
+
+  dimension: id_string_hopefully {
+    type: string
+    sql: ${TABLE}.id ;;
+  }
+
+  measure: sum_id {
+    type: sum
+    sql: ${id_string_hopefully} ;;
+  }
+
+  filter: date_filter_field {
+    type: date
+  }
+
+  filter: string_filter_field {
+    type: string
+    #sql: {% condition string_filter_field %} ${id} {% endcondition %} ;;
   }
 
 
@@ -115,6 +171,19 @@ view: orders {
     type: count
     value_format_name: decimal_0
     drill_fields: [id, users.first_name, users.last_name, users.id, order_items.count]
+<<<<<<< HEAD
+=======
+    html: {% if orders.status._value == 'complete' and value > 10 %}
+          <font color="green">{{ rendered_value }}</font>
+          {% else %}
+          <font color="black">{{ rendered_value }}</font>
+          {% endif %}
+          ;;
+    link: {
+      label: "Google Boi"
+      url: "https://www.google.com"
+    }
+>>>>>>> branch 'master' of https://github.com/srinijago/git_test_Setup.git
   }
 
   measure: 9k {
@@ -198,6 +267,11 @@ view: orders {
     }
   }
 
+  # measure: order_items_distinct_count {
+  #   type: count_distinct
+  #   sql: ${order_items.id} ;;
+  # }
+
 #   Can't filter a measure by another measure
 #   measure: filtered_count_on_measure {
 #     type: count_distinct
@@ -220,6 +294,22 @@ view: orders {
     type: number
     sql: (${distinct_order_count_month}/${distinct_order_count_sixmo}) *100;;
     value_format: "0.00\%"
+  }
+
+  measure: sum_of_id_with_drill {
+    type: sum
+    sql: ${id} ;;
+    link: {
+      url: "{{dummy._link}}&sorts=orders.status+asc"
+      label: "Click Me"
+    }
+  }
+
+  measure: dummy {
+    type: sum
+    hidden: yes
+    sql: 0 ;;
+    drill_fields: [id,created_date,status,count]
   }
 
   dimension: log_call {
@@ -602,4 +692,8 @@ view: orders {
       }
     }
   }
+
+#   set: mic_check_mic_check_1212 {
+#     fields: [negative_9k, distinct_order_count_month, distinct_order_count_sixmo]
+#   }
 }
